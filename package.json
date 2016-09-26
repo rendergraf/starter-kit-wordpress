@@ -1,0 +1,36 @@
+{
+  "name": "wordpress",
+  "version": "1.0.0",
+  "description": "Tool for develpment of theme in Wordpress",
+  "main": "style.scss",
+  "scripts": {
+    "test": "gulp watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rendergraf/wordpress.git"
+  },
+  "keywords": [
+    "Gulp",
+    "Sass",
+    "Wordpress",
+    "Bootstrap"
+  ],
+  "author": "Xavier Araque",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.0.2",
+    "gulp-esformatter": "^6.0.0",
+    "gulp-imagemin": "^2.3.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-sass": "^2.0.4",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-uglifyjs": "^0.6.2",
+    "imagemin-pngquant": "^4.2.0"
+  },
+  "bugs": {
+    "url": "https://github.com/rendergraf/wordpress/issues"
+  },
+  "homepage": "https://github.com/rendergraf/wordpress#readme"
+}

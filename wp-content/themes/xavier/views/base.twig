@@ -1,0 +1,27 @@
+{# comentario #}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        {% block head %}
+            <link rel="stylesheet" href="style.css" />
+            <title> {{ titulo }} My Webpage</title>
+        {% endblock %}
+    </head>
+    <body>
+        <!-- Esto es un comentario imprimible -->
+        {# comentario no imprimible #}
+
+        <div class="container">
+            <h1>{{ person.edad }}</h1>
+            <h2>Hola, {{ person.nombre }}</h2>
+        </div>
+        <div class="container">
+            <footer>
+                {% block footer %}
+                    &copy; Copyright 2011 by <a href="http://www.google.com">Google</a>.
+                {% endblock %}
+            </footer>
+        </div>
+    </body>
+</html>

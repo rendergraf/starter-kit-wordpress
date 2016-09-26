@@ -1,0 +1,15 @@
+/* Vendor Bootstrap */
+@import "bootstrap";
+
+/* Setup */
+@import "reset";
+@import "mixins";
+@import "variables";
+@import "fonts";
+@import "globals";
+
+/* Wordpress 8 blocks */
+@import "header";
+@import "homepage";
+@import "sidebar";
+@import "footer";
