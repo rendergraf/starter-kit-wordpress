@@ -31,6 +31,7 @@ gulp.task('sass', function () {
     .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
     .pipe(autoprefixer(
     {
+        // https://github.com/postcss/autoprefixer#options
         browsers: ['last 2 versions'],
         cascade: false
     }
@@ -42,23 +43,33 @@ gulp.task('sass', function () {
 // compress js files, use $gulp uglify
 gulp.task('uglify', function() {
   var path = path_theme + "/lib/bootstrap-sass-3.3.7/assets/javascripts/bootstrap/";
-  gulp.src([
-    // Libraries custom theme
-    path_theme + '/lib/*.js', 
+  gulp.src([ 
     // Bootstrap components
-    //path + 'affix.js',
+    path + 'affix.js',
     //path + 'alert.js',
     path + 'button.js',
     //path + 'carrousel.js',
     path + 'collapse.js',
-    path + 'dropdown.js',
-    //path + 'popover.js',
+    //path + 'dropdown.js',
+    path + 'popover.js',
     //path + 'scrollspy.js',
     //path + 'tab.js',
     //path + 'tooltip.js',
     path + 'transition.js',
+    // Libraries custom theme
+    path_theme + '/lib/*.js'
     ])
-  .pipe(uglify('main.js'))
+  // Compress version
+  //.pipe(uglify('main.min.js'))
+
+  // Uncompress version
+  .pipe(uglify('main.js', {
+      mangle: false,
+      output: {
+        beautify: true
+      }
+    }))
+
   .pipe(gulp.dest(path_theme + '/js'))
 });
 
@@ -72,7 +83,7 @@ gulp.task('esformatter', function () {
 // Task watch, use $gulp watch
 gulp.task('watch', function(){
     livereload.listen();
-    gulp.watch(path_theme + '/sass/**/*.scss', ['sass']);
+    gulp.watch(path_theme + '/**/*.scss', ['sass']);
     //gulp.watch('themes/custom/fisherprice/images/**/*'+'[.jpg, .JPG, .png, .PNG]', ['image']);
     gulp.watch(path_theme + '/lib/*.js', ['uglify']);
     gulp.watch([path_theme + '/style.css', path_theme + '/**/*.php', path_theme + '/js/*.js'], function (files){

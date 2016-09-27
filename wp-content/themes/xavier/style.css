@@ -1,4 +1,3 @@
-/* Vendor Bootstrap */
 .container {
   margin-right: auto;
   margin-left: auto;
@@ -1671,9 +1670,88 @@ input[type="button"].btn-block {
   }
 }
 
-/* Setup */
 /* Eric Meyer's Reset CSS v2.0 - http://cssreset.com */
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
   border: 0;
   font-size: 100%;
   font: inherit;
@@ -1682,7 +1760,17 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   padding: 0;
 }
 
-article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
   display: block;
 }
 
@@ -1690,15 +1778,20 @@ body {
   line-height: 1;
 }
 
-ol, ul {
+ol,
+ul {
   list-style: none;
 }
 
-blockquote, q {
+blockquote,
+q {
   quotes: none;
 }
 
-blockquote:before, blockquote:after, q:before, q:after {
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
   content: none;
 }
 
@@ -1707,87 +1800,103 @@ table {
   border-spacing: 0;
 }
 
-/* =======================================================================
-## ++ Media Queries
-========================================================================== */
-/* 
-    Used for media queries. 
-    Add these mixins in your normal scss flow.
-    
-    Eg.
-    .container{
-        width:1024px;
-        
-        @include tablets{
-            width:90%;
-        }
-    }
-*/
-/* =======================================================================
-## ++ Unit transform
-========================================================================== */
-/*  
-    Used for making containers have width in percentages. 
-    Usage: define elemnt width in px and the width of parent elemnt in px. 
-    eg. .block{width:cp(512px, 1024px)} this will result in .block{width:50%;}   
-*/
-/*  
-    Used for making px values convert to rem values
-    Usage: define font-size in px and it will convert to rems
-    eg. font-size: rem(14px);
-*/
-/* =======================================================================
-## ++ Globals
-========================================================================== */
-html {
-  font-size: 100%;
-}
-
-.weba {
-  background: blue;
-}
-
-body {
-  -webkit-font-smoothing: antialiased;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-a {
-  display: -ms-flexbox;
-  display: flex;
-}
-
-/* =======================================================================
-## ++ Cleafix
-========================================================================== */
-/* float clearing for IE6 */
-* html .clearfix {
-  height: 1%;
-  overflow: visible;
-}
-
-/* float clearing for IE7 */
-* + html .clearfix {
-  min-height: 1%;
-}
-
-/* float clearing for everyone else */
-.clearfix:after {
-  clear: both;
-  content: ".";
-  display: block;
+.video,
+.iframe-map {
   height: 0;
-  visibility: hidden;
-  font-size: 0;
+  overflow: hidden;
+  width: 100%;
+  padding-bottom: 56.25%;
+  position: relative;
 }
 
-.clr {
-  clear: both;
+.video iframe,
+.video video,
+.video object,
+.iframe-map iframe,
+.iframe-map video,
+.iframe-map object {
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
-/* Wordpress 8 blocks */
+@font-face {
+  font-family: "Roboto";
+  src: local(Roboto Thin), url("../fonts/Roboto-Thin.eot");
+  src: url("../fonts/Roboto-Thin.eot?#iefix") format("embedded-opentype"), url("../fonts/Roboto-Thin.woff2") format("woff2"), url("../fonts/Roboto-Thin.woff") format("woff"), url("../fonts/Roboto-Thin.ttf") format("truetype");
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: local(Roboto Light), url("../fonts/Roboto-Light.eot");
+  src: url("../fonts/Roboto-Light.eot?#iefix") format("embedded-opentype"), url("../fonts/Roboto-Light.woff2") format("woff2"), url("../fonts/Roboto-Light.woff") format("woff"), url("../fonts/Roboto-Light.ttf") format("truetype");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: local(Roboto Regular), url("../fonts/Roboto-Regular.eot");
+  src: url("../fonts/Roboto-Regular.eot?#iefix") format("embedded-opentype"), url("../fonts/Roboto-Regular.woff2") format("woff2"), url("../fonts/Roboto-Regular.woff") format("woff"), url("../fonts/Roboto-Regular.ttf") format("truetype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("../fonts/Roboto-Medium.eot");
+  src: url("../fonts/Roboto-Medium.eot?#iefix") format("embedded-opentype"), url("../fonts/Roboto-Medium.woff2") format("woff2"), url("../fonts/Roboto-Medium.woff") format("woff"), url("../fonts/Roboto-Medium.ttf") format("truetype");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("../fonts/Roboto-Bold.eot");
+  src: url("../fonts/Roboto-Bold.eot?#iefix") format("embedded-opentype"), url("../fonts/Roboto-Bold.woff2") format("woff2"), url("../fonts/Roboto-Bold.woff") format("woff"), url("../fonts/Roboto-Bold.ttf") format("truetype");
+  font-weight: 700;
+}
+
+@media (min-width: 768px) {
+  .hola {
+    background: #000;
+  }
+}
+
+@media (min-width: 992px) {
+  .hola {
+    background: red;
+  }
+}
+
+@media (min-width: 1200px) {
+  .hola {
+    background: blue;
+  }
+}
+
+@media (min-width: 768px) {
+  .hola {
+    background: #000;
+  }
+}
+
+@media (min-width: 992px) {
+  .hola {
+    background: red;
+  }
+}
+
+@media (min-width: 1200px) {
+  .hola {
+    background: blue;
+  }
+}
+
+.button {
+  font-effect: outline;
+}
+
+.button {
+  color: blue;
+}
 
 /*# sourceMappingURL=style.css.map */

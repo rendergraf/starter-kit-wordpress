@@ -1,15 +1,17 @@
-/* Vendor Bootstrap */
+// Vendor Bootstrap */
 @import "bootstrap";
 
-/* Setup */
+// Setup
+@import "variables";
+@import "palette";
 @import "reset";
 @import "mixins";
-@import "variables";
+@import "media";
 @import "fonts";
-@import "globals";
 
-/* Wordpress 8 blocks */
-@import "header";
-@import "homepage";
-@import "sidebar";
-@import "footer";
+// Load Styles Theme
+@import "basic";
+@import "basic-theme";
+
+// Wordpress blocks BEM
+@import "../blocks/button/button";

@@ -1,55 +1,21 @@
-/* =======================================================================
-## ++ Media Queries
-========================================================================== */
-
-/* 
-    Used for media queries. 
-    Add these mixins in your normal scss flow.
-    
-    Eg.
-    .container{
-        width:1024px;
-        
-        @include tablets{
-            width:90%;
-        }
-    }
-*/ 
-
-@mixin lowresmonitors{
-        @media screen and (max-width: 1350px){ @content;}
+// Video
+@mixin ratio ($w,$h) {
+    height: 0;
+    overflow: hidden;
+    width: 100%;
+    padding-bottom: percentage($h / $w);
 }
 
-@mixin tablets{
-        @media screen and (max-width: 1100px){ @content; }
+// Functions em and rem
+@function em($pixels,$parent:16px) {
+    @return ($pixels / $parent) * 1em;
 }
 
-@mixin phones{
-        @media screen and (max-width: 720px){ @content; }
+@function rem($pixels,$parent:16px) {
+    @return ($pixels / $parent) * 1rem;
 }
-
-/* =======================================================================
-## ++ Unit transform
-========================================================================== */
-
-/*  
-    Used for making containers have width in percentages. 
-    Usage: define elemnt width in px and the width of parent elemnt in px. 
-    eg. .block{width:cp(512px, 1024px)} this will result in .block{width:50%;}   
-*/
-
-@function cp($target, $container) {
-    @return ($target / $container) * 100%;
+// Shadow
+@mixin shadow($top, $left, $blur, $inset, $color, $a) {
+    // box-shadow: h-shadow v-shadow blur insetread color
+    box-shadow: $top $left $blur $inset rgba($color, $a);
 }
-
-/*  
-    Used for making px values convert to rem values
-    Usage: define font-size in px and it will convert to rems
-    eg. font-size: rem(14px);
-*/
-
-@function rem($target, $context: $base-font-size) {
-   @if $target == 0 { @return 0 }
-   @return $target / $context + 0rem;
-}
-$base-font-size:16px;

@@ -1,1 +1,254 @@
-function cosa(t){var e="cosa";console.log(e)}+function(t){"use strict";function e(e){return this.each(function(){var i=t(this),a=i.data("bs.button"),s="object"==typeof e&&e;a||i.data("bs.button",a=new n(this,s)),"toggle"==e?a.toggle():e&&a.setState(e)})}var n=function(e,i){this.$element=t(e),this.options=t.extend({},n.DEFAULTS,i),this.isLoading=!1};n.VERSION="3.3.7",n.DEFAULTS={loadingText:"loading..."},n.prototype.setState=function(e){var n="disabled",i=this.$element,a=i.is("input")?"val":"html",s=i.data();e+="Text",null==s.resetText&&i.data("resetText",i[a]()),setTimeout(t.proxy(function(){i[a](null==s[e]?this.options[e]:s[e]),"loadingText"==e?(this.isLoading=!0,i.addClass(n).attr(n,n).prop(n,!0)):this.isLoading&&(this.isLoading=!1,i.removeClass(n).removeAttr(n).prop(n,!1))},this),0)},n.prototype.toggle=function(){var t=!0,e=this.$element.closest('[data-toggle="buttons"]');if(e.length){var n=this.$element.find("input");"radio"==n.prop("type")?(n.prop("checked")&&(t=!1),e.find(".active").removeClass("active"),this.$element.addClass("active")):"checkbox"==n.prop("type")&&(n.prop("checked")!==this.$element.hasClass("active")&&(t=!1),this.$element.toggleClass("active")),n.prop("checked",this.$element.hasClass("active")),t&&n.trigger("change")}else this.$element.attr("aria-pressed",!this.$element.hasClass("active")),this.$element.toggleClass("active")};var i=t.fn.button;t.fn.button=e,t.fn.button.Constructor=n,t.fn.button.noConflict=function(){return t.fn.button=i,this},t(document).on("click.bs.button.data-api",'[data-toggle^="button"]',function(n){var i=t(n.target).closest(".btn");e.call(i,"toggle"),t(n.target).is('input[type="radio"], input[type="checkbox"]')||(n.preventDefault(),i.is("input,button")?i.trigger("focus"):i.find("input:visible,button:visible").first().trigger("focus"))}).on("focus.bs.button.data-api blur.bs.button.data-api",'[data-toggle^="button"]',function(e){t(e.target).closest(".btn").toggleClass("focus",/^focus(in)?$/.test(e.type))})}(jQuery),+function(t){"use strict";function e(e){var n,i=e.attr("data-target")||(n=e.attr("href"))&&n.replace(/.*(?=#[^\s]+$)/,"");return t(i)}function n(e){return this.each(function(){var n=t(this),a=n.data("bs.collapse"),s=t.extend({},i.DEFAULTS,n.data(),"object"==typeof e&&e);!a&&s.toggle&&/show|hide/.test(e)&&(s.toggle=!1),a||n.data("bs.collapse",a=new i(this,s)),"string"==typeof e&&a[e]()})}var i=function(e,n){this.$element=t(e),this.options=t.extend({},i.DEFAULTS,n),this.$trigger=t('[data-toggle="collapse"][href="#'+e.id+'"],[data-toggle="collapse"][data-target="#'+e.id+'"]'),this.transitioning=null,this.options.parent?this.$parent=this.getParent():this.addAriaAndCollapsedClass(this.$element,this.$trigger),this.options.toggle&&this.toggle()};i.VERSION="3.3.7",i.TRANSITION_DURATION=350,i.DEFAULTS={toggle:!0},i.prototype.dimension=function(){var t=this.$element.hasClass("width");return t?"width":"height"},i.prototype.show=function(){if(!this.transitioning&&!this.$element.hasClass("in")){var e,a=this.$parent&&this.$parent.children(".panel").children(".in, .collapsing");if(!(a&&a.length&&(e=a.data("bs.collapse"),e&&e.transitioning))){var s=t.Event("show.bs.collapse");if(this.$element.trigger(s),!s.isDefaultPrevented()){a&&a.length&&(n.call(a,"hide"),e||a.data("bs.collapse",null));var o=this.dimension();this.$element.removeClass("collapse").addClass("collapsing")[o](0).attr("aria-expanded",!0),this.$trigger.removeClass("collapsed").attr("aria-expanded",!0),this.transitioning=1;var r=function(){this.$element.removeClass("collapsing").addClass("collapse in")[o](""),this.transitioning=0,this.$element.trigger("shown.bs.collapse")};if(!t.support.transition)return r.call(this);var l=t.camelCase(["scroll",o].join("-"));this.$element.one("bsTransitionEnd",t.proxy(r,this)).emulateTransitionEnd(i.TRANSITION_DURATION)[o](this.$element[0][l])}}}},i.prototype.hide=function(){if(!this.transitioning&&this.$element.hasClass("in")){var e=t.Event("hide.bs.collapse");if(this.$element.trigger(e),!e.isDefaultPrevented()){var n=this.dimension();this.$element[n](this.$element[n]())[0].offsetHeight,this.$element.addClass("collapsing").removeClass("collapse in").attr("aria-expanded",!1),this.$trigger.addClass("collapsed").attr("aria-expanded",!1),this.transitioning=1;var a=function(){this.transitioning=0,this.$element.removeClass("collapsing").addClass("collapse").trigger("hidden.bs.collapse")};return t.support.transition?void this.$element[n](0).one("bsTransitionEnd",t.proxy(a,this)).emulateTransitionEnd(i.TRANSITION_DURATION):a.call(this)}}},i.prototype.toggle=function(){this[this.$element.hasClass("in")?"hide":"show"]()},i.prototype.getParent=function(){return t(this.options.parent).find('[data-toggle="collapse"][data-parent="'+this.options.parent+'"]').each(t.proxy(function(n,i){var a=t(i);this.addAriaAndCollapsedClass(e(a),a)},this)).end()},i.prototype.addAriaAndCollapsedClass=function(t,e){var n=t.hasClass("in");t.attr("aria-expanded",n),e.toggleClass("collapsed",!n).attr("aria-expanded",n)};var a=t.fn.collapse;t.fn.collapse=n,t.fn.collapse.Constructor=i,t.fn.collapse.noConflict=function(){return t.fn.collapse=a,this},t(document).on("click.bs.collapse.data-api",'[data-toggle="collapse"]',function(i){var a=t(this);a.attr("data-target")||i.preventDefault();var s=e(a),o=s.data("bs.collapse"),r=o?"toggle":a.data();n.call(s,r)})}(jQuery),+function(t){"use strict";function e(e){var n=e.attr("data-target");n||(n=e.attr("href"),n=n&&/#[A-Za-z]/.test(n)&&n.replace(/.*(?=#[^\s]*$)/,""));var i=n&&t(n);return i&&i.length?i:e.parent()}function n(n){n&&3===n.which||(t(a).remove(),t(s).each(function(){var i=t(this),a=e(i),s={relatedTarget:this};a.hasClass("open")&&(n&&"click"==n.type&&/input|textarea/i.test(n.target.tagName)&&t.contains(a[0],n.target)||(a.trigger(n=t.Event("hide.bs.dropdown",s)),n.isDefaultPrevented()||(i.attr("aria-expanded","false"),a.removeClass("open").trigger(t.Event("hidden.bs.dropdown",s)))))}))}function i(e){return this.each(function(){var n=t(this),i=n.data("bs.dropdown");i||n.data("bs.dropdown",i=new o(this)),"string"==typeof e&&i[e].call(n)})}var a=".dropdown-backdrop",s='[data-toggle="dropdown"]',o=function(e){t(e).on("click.bs.dropdown",this.toggle)};o.VERSION="3.3.7",o.prototype.toggle=function(i){var a=t(this);if(!a.is(".disabled, :disabled")){var s=e(a),o=s.hasClass("open");if(n(),!o){"ontouchstart"in document.documentElement&&!s.closest(".navbar-nav").length&&t(document.createElement("div")).addClass("dropdown-backdrop").insertAfter(t(this)).on("click",n);var r={relatedTarget:this};if(s.trigger(i=t.Event("show.bs.dropdown",r)),i.isDefaultPrevented())return;a.trigger("focus").attr("aria-expanded","true"),s.toggleClass("open").trigger(t.Event("shown.bs.dropdown",r))}return!1}},o.prototype.keydown=function(n){if(/(38|40|27|32)/.test(n.which)&&!/input|textarea/i.test(n.target.tagName)){var i=t(this);if(n.preventDefault(),n.stopPropagation(),!i.is(".disabled, :disabled")){var a=e(i),o=a.hasClass("open");if(!o&&27!=n.which||o&&27==n.which)return 27==n.which&&a.find(s).trigger("focus"),i.trigger("click");var r=" li:not(.disabled):visible a",l=a.find(".dropdown-menu"+r);if(l.length){var d=l.index(n.target);38==n.which&&d>0&&d--,40==n.which&&d<l.length-1&&d++,~d||(d=0),l.eq(d).trigger("focus")}}}};var r=t.fn.dropdown;t.fn.dropdown=i,t.fn.dropdown.Constructor=o,t.fn.dropdown.noConflict=function(){return t.fn.dropdown=r,this},t(document).on("click.bs.dropdown.data-api",n).on("click.bs.dropdown.data-api",".dropdown form",function(t){t.stopPropagation()}).on("click.bs.dropdown.data-api",s,o.prototype.toggle).on("keydown.bs.dropdown.data-api",s,o.prototype.keydown).on("keydown.bs.dropdown.data-api",".dropdown-menu",o.prototype.keydown)}(jQuery),+function(t){"use strict";function e(){var t=document.createElement("bootstrap"),e={WebkitTransition:"webkitTransitionEnd",MozTransition:"transitionend",OTransition:"oTransitionEnd otransitionend",transition:"transitionend"};for(var n in e)if(void 0!==t.style[n])return{end:e[n]};return!1}t.fn.emulateTransitionEnd=function(e){var n=!1,i=this;t(this).one("bsTransitionEnd",function(){n=!0});var a=function(){n||t(i).trigger(t.support.transition.end)};return setTimeout(a,e),this},t(function(){t.support.transition=e(),t.support.transition&&(t.event.special.bsTransitionEnd={bindType:t.support.transition.end,delegateType:t.support.transition.end,handle:function(e){if(t(e.target).is(this))return e.handleObj.handler.apply(this,arguments)}})})}(jQuery);
+function suma(nombre, nombre) {
+    var sumar = nombre + nombre;
+    return sumar;
+}
+
++function($) {
+    "use strict";
+    function Plugin(option) {
+        return this.each(function() {
+            var $this = $(this), data = $this.data("bs.affix"), options = "object" == typeof option && option;
+            data || $this.data("bs.affix", data = new Affix(this, options)), "string" == typeof option && data[option]();
+        });
+    }
+    var Affix = function(element, options) {
+        this.options = $.extend({}, Affix.DEFAULTS, options), this.$target = $(this.options.target).on("scroll.bs.affix.data-api", $.proxy(this.checkPosition, this)).on("click.bs.affix.data-api", $.proxy(this.checkPositionWithEventLoop, this)), 
+        this.$element = $(element), this.affixed = null, this.unpin = null, this.pinnedOffset = null, 
+        this.checkPosition();
+    };
+    Affix.VERSION = "3.3.7", Affix.RESET = "affix affix-top affix-bottom", Affix.DEFAULTS = {
+        offset: 0,
+        target: window
+    }, Affix.prototype.getState = function(scrollHeight, height, offsetTop, offsetBottom) {
+        var scrollTop = this.$target.scrollTop(), position = this.$element.offset(), targetHeight = this.$target.height();
+        if (null != offsetTop && "top" == this.affixed) return scrollTop < offsetTop && "top";
+        if ("bottom" == this.affixed) return null != offsetTop ? !(scrollTop + this.unpin <= position.top) && "bottom" : !(scrollTop + targetHeight <= scrollHeight - offsetBottom) && "bottom";
+        var initializing = null == this.affixed, colliderTop = initializing ? scrollTop : position.top, colliderHeight = initializing ? targetHeight : height;
+        return null != offsetTop && scrollTop <= offsetTop ? "top" : null != offsetBottom && colliderTop + colliderHeight >= scrollHeight - offsetBottom && "bottom";
+    }, Affix.prototype.getPinnedOffset = function() {
+        if (this.pinnedOffset) return this.pinnedOffset;
+        this.$element.removeClass(Affix.RESET).addClass("affix");
+        var scrollTop = this.$target.scrollTop(), position = this.$element.offset();
+        return this.pinnedOffset = position.top - scrollTop;
+    }, Affix.prototype.checkPositionWithEventLoop = function() {
+        setTimeout($.proxy(this.checkPosition, this), 1);
+    }, Affix.prototype.checkPosition = function() {
+        if (this.$element.is(":visible")) {
+            var height = this.$element.height(), offset = this.options.offset, offsetTop = offset.top, offsetBottom = offset.bottom, scrollHeight = Math.max($(document).height(), $(document.body).height());
+            "object" != typeof offset && (offsetBottom = offsetTop = offset), "function" == typeof offsetTop && (offsetTop = offset.top(this.$element)), 
+            "function" == typeof offsetBottom && (offsetBottom = offset.bottom(this.$element));
+            var affix = this.getState(scrollHeight, height, offsetTop, offsetBottom);
+            if (this.affixed != affix) {
+                null != this.unpin && this.$element.css("top", "");
+                var affixType = "affix" + (affix ? "-" + affix : ""), e = $.Event(affixType + ".bs.affix");
+                if (this.$element.trigger(e), e.isDefaultPrevented()) return;
+                this.affixed = affix, this.unpin = "bottom" == affix ? this.getPinnedOffset() : null, 
+                this.$element.removeClass(Affix.RESET).addClass(affixType).trigger(affixType.replace("affix", "affixed") + ".bs.affix");
+            }
+            "bottom" == affix && this.$element.offset({
+                top: scrollHeight - height - offsetBottom
+            });
+        }
+    };
+    var old = $.fn.affix;
+    $.fn.affix = Plugin, $.fn.affix.Constructor = Affix, $.fn.affix.noConflict = function() {
+        return $.fn.affix = old, this;
+    }, $(window).on("load", function() {
+        $('[data-spy="affix"]').each(function() {
+            var $spy = $(this), data = $spy.data();
+            data.offset = data.offset || {}, null != data.offsetBottom && (data.offset.bottom = data.offsetBottom), 
+            null != data.offsetTop && (data.offset.top = data.offsetTop), Plugin.call($spy, data);
+        });
+    });
+}(jQuery), +function($) {
+    "use strict";
+    function Plugin(option) {
+        return this.each(function() {
+            var $this = $(this), data = $this.data("bs.button"), options = "object" == typeof option && option;
+            data || $this.data("bs.button", data = new Button(this, options)), "toggle" == option ? data.toggle() : option && data.setState(option);
+        });
+    }
+    var Button = function(element, options) {
+        this.$element = $(element), this.options = $.extend({}, Button.DEFAULTS, options), 
+        this.isLoading = !1;
+    };
+    Button.VERSION = "3.3.7", Button.DEFAULTS = {
+        loadingText: "loading..."
+    }, Button.prototype.setState = function(state) {
+        var d = "disabled", $el = this.$element, val = $el.is("input") ? "val" : "html", data = $el.data();
+        state += "Text", null == data.resetText && $el.data("resetText", $el[val]()), setTimeout($.proxy(function() {
+            $el[val](null == data[state] ? this.options[state] : data[state]), "loadingText" == state ? (this.isLoading = !0, 
+            $el.addClass(d).attr(d, d).prop(d, !0)) : this.isLoading && (this.isLoading = !1, 
+            $el.removeClass(d).removeAttr(d).prop(d, !1));
+        }, this), 0);
+    }, Button.prototype.toggle = function() {
+        var changed = !0, $parent = this.$element.closest('[data-toggle="buttons"]');
+        if ($parent.length) {
+            var $input = this.$element.find("input");
+            "radio" == $input.prop("type") ? ($input.prop("checked") && (changed = !1), $parent.find(".active").removeClass("active"), 
+            this.$element.addClass("active")) : "checkbox" == $input.prop("type") && ($input.prop("checked") !== this.$element.hasClass("active") && (changed = !1), 
+            this.$element.toggleClass("active")), $input.prop("checked", this.$element.hasClass("active")), 
+            changed && $input.trigger("change");
+        } else this.$element.attr("aria-pressed", !this.$element.hasClass("active")), this.$element.toggleClass("active");
+    };
+    var old = $.fn.button;
+    $.fn.button = Plugin, $.fn.button.Constructor = Button, $.fn.button.noConflict = function() {
+        return $.fn.button = old, this;
+    }, $(document).on("click.bs.button.data-api", '[data-toggle^="button"]', function(e) {
+        var $btn = $(e.target).closest(".btn");
+        Plugin.call($btn, "toggle"), $(e.target).is('input[type="radio"], input[type="checkbox"]') || (e.preventDefault(), 
+        $btn.is("input,button") ? $btn.trigger("focus") : $btn.find("input:visible,button:visible").first().trigger("focus"));
+    }).on("focus.bs.button.data-api blur.bs.button.data-api", '[data-toggle^="button"]', function(e) {
+        $(e.target).closest(".btn").toggleClass("focus", /^focus(in)?$/.test(e.type));
+    });
+}(jQuery), +function($) {
+    "use strict";
+    function getTargetFromTrigger($trigger) {
+        var href, target = $trigger.attr("data-target") || (href = $trigger.attr("href")) && href.replace(/.*(?=#[^\s]+$)/, "");
+        return $(target);
+    }
+    function Plugin(option) {
+        return this.each(function() {
+            var $this = $(this), data = $this.data("bs.collapse"), options = $.extend({}, Collapse.DEFAULTS, $this.data(), "object" == typeof option && option);
+            !data && options.toggle && /show|hide/.test(option) && (options.toggle = !1), data || $this.data("bs.collapse", data = new Collapse(this, options)), 
+            "string" == typeof option && data[option]();
+        });
+    }
+    var Collapse = function(element, options) {
+        this.$element = $(element), this.options = $.extend({}, Collapse.DEFAULTS, options), 
+        this.$trigger = $('[data-toggle="collapse"][href="#' + element.id + '"],[data-toggle="collapse"][data-target="#' + element.id + '"]'), 
+        this.transitioning = null, this.options.parent ? this.$parent = this.getParent() : this.addAriaAndCollapsedClass(this.$element, this.$trigger), 
+        this.options.toggle && this.toggle();
+    };
+    Collapse.VERSION = "3.3.7", Collapse.TRANSITION_DURATION = 350, Collapse.DEFAULTS = {
+        toggle: !0
+    }, Collapse.prototype.dimension = function() {
+        var hasWidth = this.$element.hasClass("width");
+        return hasWidth ? "width" : "height";
+    }, Collapse.prototype.show = function() {
+        if (!this.transitioning && !this.$element.hasClass("in")) {
+            var activesData, actives = this.$parent && this.$parent.children(".panel").children(".in, .collapsing");
+            if (!(actives && actives.length && (activesData = actives.data("bs.collapse"), activesData && activesData.transitioning))) {
+                var startEvent = $.Event("show.bs.collapse");
+                if (this.$element.trigger(startEvent), !startEvent.isDefaultPrevented()) {
+                    actives && actives.length && (Plugin.call(actives, "hide"), activesData || actives.data("bs.collapse", null));
+                    var dimension = this.dimension();
+                    this.$element.removeClass("collapse").addClass("collapsing")[dimension](0).attr("aria-expanded", !0), 
+                    this.$trigger.removeClass("collapsed").attr("aria-expanded", !0), this.transitioning = 1;
+                    var complete = function() {
+                        this.$element.removeClass("collapsing").addClass("collapse in")[dimension](""), 
+                        this.transitioning = 0, this.$element.trigger("shown.bs.collapse");
+                    };
+                    if (!$.support.transition) return complete.call(this);
+                    var scrollSize = $.camelCase([ "scroll", dimension ].join("-"));
+                    this.$element.one("bsTransitionEnd", $.proxy(complete, this)).emulateTransitionEnd(Collapse.TRANSITION_DURATION)[dimension](this.$element[0][scrollSize]);
+                }
+            }
+        }
+    }, Collapse.prototype.hide = function() {
+        if (!this.transitioning && this.$element.hasClass("in")) {
+            var startEvent = $.Event("hide.bs.collapse");
+            if (this.$element.trigger(startEvent), !startEvent.isDefaultPrevented()) {
+                var dimension = this.dimension();
+                this.$element[dimension](this.$element[dimension]())[0].offsetHeight, this.$element.addClass("collapsing").removeClass("collapse in").attr("aria-expanded", !1), 
+                this.$trigger.addClass("collapsed").attr("aria-expanded", !1), this.transitioning = 1;
+                var complete = function() {
+                    this.transitioning = 0, this.$element.removeClass("collapsing").addClass("collapse").trigger("hidden.bs.collapse");
+                };
+                return $.support.transition ? void this.$element[dimension](0).one("bsTransitionEnd", $.proxy(complete, this)).emulateTransitionEnd(Collapse.TRANSITION_DURATION) : complete.call(this);
+            }
+        }
+    }, Collapse.prototype.toggle = function() {
+        this[this.$element.hasClass("in") ? "hide" : "show"]();
+    }, Collapse.prototype.getParent = function() {
+        return $(this.options.parent).find('[data-toggle="collapse"][data-parent="' + this.options.parent + '"]').each($.proxy(function(i, element) {
+            var $element = $(element);
+            this.addAriaAndCollapsedClass(getTargetFromTrigger($element), $element);
+        }, this)).end();
+    }, Collapse.prototype.addAriaAndCollapsedClass = function($element, $trigger) {
+        var isOpen = $element.hasClass("in");
+        $element.attr("aria-expanded", isOpen), $trigger.toggleClass("collapsed", !isOpen).attr("aria-expanded", isOpen);
+    };
+    var old = $.fn.collapse;
+    $.fn.collapse = Plugin, $.fn.collapse.Constructor = Collapse, $.fn.collapse.noConflict = function() {
+        return $.fn.collapse = old, this;
+    }, $(document).on("click.bs.collapse.data-api", '[data-toggle="collapse"]', function(e) {
+        var $this = $(this);
+        $this.attr("data-target") || e.preventDefault();
+        var $target = getTargetFromTrigger($this), data = $target.data("bs.collapse"), option = data ? "toggle" : $this.data();
+        Plugin.call($target, option);
+    });
+}(jQuery), +function($) {
+    "use strict";
+    function Plugin(option) {
+        return this.each(function() {
+            var $this = $(this), data = $this.data("bs.popover"), options = "object" == typeof option && option;
+            !data && /destroy|hide/.test(option) || (data || $this.data("bs.popover", data = new Popover(this, options)), 
+            "string" == typeof option && data[option]());
+        });
+    }
+    var Popover = function(element, options) {
+        this.init("popover", element, options);
+    };
+    if (!$.fn.tooltip) throw new Error("Popover requires tooltip.js");
+    Popover.VERSION = "3.3.7", Popover.DEFAULTS = $.extend({}, $.fn.tooltip.Constructor.DEFAULTS, {
+        placement: "right",
+        trigger: "click",
+        content: "",
+        template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
+    }), Popover.prototype = $.extend({}, $.fn.tooltip.Constructor.prototype), Popover.prototype.constructor = Popover, 
+    Popover.prototype.getDefaults = function() {
+        return Popover.DEFAULTS;
+    }, Popover.prototype.setContent = function() {
+        var $tip = this.tip(), title = this.getTitle(), content = this.getContent();
+        $tip.find(".popover-title")[this.options.html ? "html" : "text"](title), $tip.find(".popover-content").children().detach().end()[this.options.html ? "string" == typeof content ? "html" : "append" : "text"](content), 
+        $tip.removeClass("fade top bottom left right in"), $tip.find(".popover-title").html() || $tip.find(".popover-title").hide();
+    }, Popover.prototype.hasContent = function() {
+        return this.getTitle() || this.getContent();
+    }, Popover.prototype.getContent = function() {
+        var $e = this.$element, o = this.options;
+        return $e.attr("data-content") || ("function" == typeof o.content ? o.content.call($e[0]) : o.content);
+    }, Popover.prototype.arrow = function() {
+        return this.$arrow = this.$arrow || this.tip().find(".arrow");
+    };
+    var old = $.fn.popover;
+    $.fn.popover = Plugin, $.fn.popover.Constructor = Popover, $.fn.popover.noConflict = function() {
+        return $.fn.popover = old, this;
+    };
+}(jQuery), +function($) {
+    "use strict";
+    function transitionEnd() {
+        var el = document.createElement("bootstrap"), transEndEventNames = {
+            WebkitTransition: "webkitTransitionEnd",
+            MozTransition: "transitionend",
+            OTransition: "oTransitionEnd otransitionend",
+            transition: "transitionend"
+        };
+        for (var name in transEndEventNames) if (void 0 !== el.style[name]) return {
+            end: transEndEventNames[name]
+        };
+        return !1;
+    }
+    $.fn.emulateTransitionEnd = function(duration) {
+        var called = !1, $el = this;
+        $(this).one("bsTransitionEnd", function() {
+            called = !0;
+        });
+        var callback = function() {
+            called || $($el).trigger($.support.transition.end);
+        };
+        return setTimeout(callback, duration), this;
+    }, $(function() {
+        $.support.transition = transitionEnd(), $.support.transition && ($.event.special.bsTransitionEnd = {
+            bindType: $.support.transition.end,
+            delegateType: $.support.transition.end,
+            handle: function(e) {
+                if ($(e.target).is(this)) return e.handleObj.handler.apply(this, arguments);
+            }
+        });
+    });
+}(jQuery);
+
+var nombre = 10;
+
+suma();
