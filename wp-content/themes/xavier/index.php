@@ -1,11 +1,3 @@
-<?php
-require_once dirname(__FILE__).'/lib/loader.php';
+<?php get_header();?>
 
-$titulo = 'Mi página';
-$saludo = 'Bienvenidos';
-
-$person = [
-	'nombre' => 'Xavier',
-	'edad' => 40
-];
-echo $twig->render('base.twig', compact('person'));
+<?php get_footer();?>
