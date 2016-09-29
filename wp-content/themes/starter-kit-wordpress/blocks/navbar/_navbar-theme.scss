@@ -1,0 +1,52 @@
+.navbar {
+	background: $primary-color;
+}
+.navbar__container {
+	background-color: transparent;
+}
+.navbar__container__header {
+
+}
+.navbar__container__header--brand {
+	color: $primary-color-text !important;
+	transition: all .3s ease-in-out;
+	&:hover,
+	&:active,
+	&:focus  {
+		background-color: mix(white, $primary-color, 15%) !important;
+	}
+}
+
+.navbar__container__menu {
+
+}
+.navbar__container__menu__list {
+
+}
+.navbar__container__menu__list__item {
+
+}
+
+.navbar__container__menu__list__item--link {
+	background-color: $primary-color;
+	color: $primary-color-text !important;
+	transition: all .3s ease-in-out;
+	&:hover,
+	&:active,
+	&:focus  {
+		background-color: mix(white, $primary-color, 15%) !important;
+	}
+}
+
+.navbar__container__header--button-collapse {
+	background-color: mix(black, $primary-color, 15%) !important;
+	transition: all .3s ease-out;
+	&:hover,
+	&:active,
+	&:focus {
+		background-color: mix(black, $primary-color, 30%) !important;
+	}
+		.icon-bar {
+			background-color: mix(white, $primary-color, 15%) !important;
+		}
+}

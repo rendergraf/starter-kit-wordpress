@@ -1,0 +1,31 @@
+@import 'form-theme';
+
+footer .paddin-form {
+	padding: 20px 0;
+	label {
+		color: white;
+	}
+}
+.paddin-form {
+	padding: 20px;
+}
+
+.form-horizontal {
+
+}
+
+.form-horizontal__form-group {
+
+}
+
+.form-horizontal__form-group--label {
+
+}
+
+.form-horizontal__form-group--input,
+.form-horizontal__form-group--textarea {
+	border-radius: 0px;
+    box-shadow: none;
+    height: 45px;
+    max-width: 100%;
+}

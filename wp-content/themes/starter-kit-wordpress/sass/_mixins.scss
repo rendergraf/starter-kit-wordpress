@@ -1,0 +1,26 @@
+.image-responsive {
+	display: block;
+	width: 100%;
+	height: auto;    
+}
+// Video
+@mixin ratio ($w,$h) {
+    height: 0;
+    overflow: hidden;
+    width: 100%;
+    padding-bottom: percentage($h / $w);
+}
+
+// Functions em and rem
+@function em($pixels,$parent:16px) {
+    @return ($pixels / $parent) * 1em;
+}
+
+@function rem($pixels,$parent:16px) {
+    @return ($pixels / $parent) * 1rem;
+}
+// Shadow
+@mixin shadow($top, $left, $blur, $inset, $color, $a) {
+    // box-shadow: h-shadow v-shadow blur insetread color
+    box-shadow: $top $left $blur $inset rgba($color, $a);
+}

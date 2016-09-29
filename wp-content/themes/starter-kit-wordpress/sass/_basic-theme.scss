@@ -1,0 +1,25 @@
+// min-width: 768px
+@media (min-width: $screen-sm-min) {
+	.hola {
+		background: #000;
+	}
+}
+// min-width: 992px
+@media (min-width: $screen-md-min) {
+	.hola {
+		background: red;
+	}
+}
+// min-width: 1200px
+@media (min-width: $screen-lg-min) {
+	.hola {
+		background: blue;
+	}
+}
+// All mobile
+.footer {
+	background-color: $primary-color;
+	.text-muted {
+		color: $primary-color-text;
+	}
+}

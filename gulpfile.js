@@ -8,7 +8,7 @@ image           = require('gulp-imagemin'),
 pngquant        = require('imagemin-pngquant'),
 esformatter     = require('gulp-esformatter');
 
-var theme_name  = "xavier" 
+var theme_name  = "starter-kit-wordpress" 
 var path_themes = "wp-content/themes/";
 var path_theme  = path_themes + theme_name
 
@@ -28,7 +28,7 @@ gulp.task('sass', function () {
   gulp.src(path_theme + '/sass/**/*.scss')
   .pipe(sourcemaps.init())
     // Type: String Default: nested Values: nested, expanded, compact, compressed
-    .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
+    .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
     .pipe(autoprefixer(
     {
         // https://github.com/postcss/autoprefixer#options
@@ -60,15 +60,15 @@ gulp.task('uglify', function() {
     path_theme + '/lib/*.js'
     ])
   // Compress version
-  //.pipe(uglify('main.min.js'))
+  .pipe(uglify('main.min.js'))
 
   //Uncompress version
-  .pipe(uglify('main.js', {
-      mangle: false,
-      output: {
-        beautify: true
-      }
-    }))
+  // .pipe(uglify('main.js', {
+  //     mangle: false,
+  //     output: {
+  //       beautify: true
+  //     }
+  //   }))
 
   .pipe(gulp.dest(path_theme + '/js'))
 });
