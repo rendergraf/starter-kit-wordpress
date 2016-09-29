@@ -1,3 +1,12 @@
 .button {
-	font-effect: outline;
+	border-radius: 0px;
+	border: none;
+	background-color: $accent-color;
+	transition: all .3s ease-in-out;
+	&:hover,
+	&:active,
+	&:focus  {
+		background-color: mix(white, $accent-color, 15%) !important;
+		outline: none;
+	}
 }

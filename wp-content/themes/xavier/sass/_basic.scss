@@ -1,19 +1,32 @@
+// All mobile
+
+
 // min-width: 768px
 @media (min-width: $screen-sm-min) {
-	.hola {
-		background: #000;
-	}
+
 }
 // min-width: 992px
 @media (min-width: $screen-md-min) {
-	.hola {
-		background: red;
-	}
+
 }
 // min-width: 1200px
 @media (min-width: $screen-lg-min) {
-	.hola {
-		background: blue;
+
+}
+
+.footer {
+    bottom: 0;
+    width: 100%;
+    //height: 70px;
+    .text-muted {
+    	margin: 20px 0;
 	}
 }
-// All mobile
+
+.footer--menu-subtile {
+	padding-top: 20px;
+	padding-bottom: 10px;
+	font-weight: 600;
+	font-size: em(20px);
+	color: $primary-color-text;
+}

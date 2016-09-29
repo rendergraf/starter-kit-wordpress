@@ -17,3 +17,9 @@
 	}
 }
 // All mobile
+.footer {
+	background-color: $primary-color;
+	.text-muted {
+		color: $primary-color-text;
+	}
+}

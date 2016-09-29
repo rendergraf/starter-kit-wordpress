@@ -13,15 +13,15 @@ var path_themes = "wp-content/themes/";
 var path_theme  = path_themes + theme_name
 
 // optimized images, use $gulp image
-gulp.task('image', function () {
-    return gulp.src(path_theme + '/*')
-    .pipe(image({
-        progressive: true,
-        svgoPlugins: [{removeViewBox: false}],
-        use: [pngquant()]
-    }))
-    .pipe(gulp.dest(path_theme + '/images'));
-});
+// gulp.task('image', function () {
+//     return gulp.src(path_theme + '/*')
+//     .pipe(image({
+//         progressive: true,
+//         svgoPlugins: [{removeViewBox: false}],
+//         use: [pngquant()]
+//     }))
+//     .pipe(gulp.dest(path_theme + '/images'));
+// });
 
 // compile sass files, use $gulp sass
 gulp.task('sass', function () {
@@ -45,13 +45,13 @@ gulp.task('uglify', function() {
   var path = path_theme + "/lib/bootstrap-sass-3.3.7/assets/javascripts/bootstrap/";
   gulp.src([ 
     // Bootstrap components
-    path + 'affix.js',
+    //path + 'affix.js',
     //path + 'alert.js',
-    path + 'button.js',
-    //path + 'carrousel.js',
+    //path + 'button.js',
+    path + 'carousel.js',
     path + 'collapse.js',
     //path + 'dropdown.js',
-    path + 'popover.js',
+    //path + 'popover.js',
     //path + 'scrollspy.js',
     //path + 'tab.js',
     //path + 'tooltip.js',
@@ -62,7 +62,7 @@ gulp.task('uglify', function() {
   // Compress version
   //.pipe(uglify('main.min.js'))
 
-  // Uncompress version
+  //Uncompress version
   .pipe(uglify('main.js', {
       mangle: false,
       output: {
@@ -74,11 +74,11 @@ gulp.task('uglify', function() {
 });
 
 // Formater JS
-gulp.task('esformatter', function () {
-    return gulp.src(path_theme + '/js-raw/main.js')
-        .pipe(esformatter({indent: {value: '  '}}))
-        .pipe(gulp.dest(path_theme + '/js-raw/output'));
-});
+// gulp.task('esformatter', function () {
+//     return gulp.src(path_theme + '/js-raw/main.js')
+//         .pipe(esformatter({indent: {value: '  '}}))
+//         .pipe(gulp.dest(path_theme + '/js-raw/output'));
+// });
 
 // Task watch, use $gulp watch
 gulp.task('watch', function(){

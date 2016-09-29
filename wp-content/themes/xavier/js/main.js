@@ -7,99 +7,105 @@ function suma(nombre, nombre) {
     "use strict";
     function Plugin(option) {
         return this.each(function() {
-            var $this = $(this), data = $this.data("bs.affix"), options = "object" == typeof option && option;
-            data || $this.data("bs.affix", data = new Affix(this, options)), "string" == typeof option && data[option]();
+            var $this = $(this), data = $this.data("bs.carousel"), options = $.extend({}, Carousel.DEFAULTS, $this.data(), "object" == typeof option && option), action = "string" == typeof option ? option : options.slide;
+            data || $this.data("bs.carousel", data = new Carousel(this, options)), "number" == typeof option ? data.to(option) : action ? data[action]() : options.interval && data.pause().cycle();
         });
     }
-    var Affix = function(element, options) {
-        this.options = $.extend({}, Affix.DEFAULTS, options), this.$target = $(this.options.target).on("scroll.bs.affix.data-api", $.proxy(this.checkPosition, this)).on("click.bs.affix.data-api", $.proxy(this.checkPositionWithEventLoop, this)), 
-        this.$element = $(element), this.affixed = null, this.unpin = null, this.pinnedOffset = null, 
-        this.checkPosition();
+    var Carousel = function(element, options) {
+        this.$element = $(element), this.$indicators = this.$element.find(".carousel-indicators"), 
+        this.options = options, this.paused = null, this.sliding = null, this.interval = null, 
+        this.$active = null, this.$items = null, this.options.keyboard && this.$element.on("keydown.bs.carousel", $.proxy(this.keydown, this)), 
+        "hover" == this.options.pause && !("ontouchstart" in document.documentElement) && this.$element.on("mouseenter.bs.carousel", $.proxy(this.pause, this)).on("mouseleave.bs.carousel", $.proxy(this.cycle, this));
     };
-    Affix.VERSION = "3.3.7", Affix.RESET = "affix affix-top affix-bottom", Affix.DEFAULTS = {
-        offset: 0,
-        target: window
-    }, Affix.prototype.getState = function(scrollHeight, height, offsetTop, offsetBottom) {
-        var scrollTop = this.$target.scrollTop(), position = this.$element.offset(), targetHeight = this.$target.height();
-        if (null != offsetTop && "top" == this.affixed) return scrollTop < offsetTop && "top";
-        if ("bottom" == this.affixed) return null != offsetTop ? !(scrollTop + this.unpin <= position.top) && "bottom" : !(scrollTop + targetHeight <= scrollHeight - offsetBottom) && "bottom";
-        var initializing = null == this.affixed, colliderTop = initializing ? scrollTop : position.top, colliderHeight = initializing ? targetHeight : height;
-        return null != offsetTop && scrollTop <= offsetTop ? "top" : null != offsetBottom && colliderTop + colliderHeight >= scrollHeight - offsetBottom && "bottom";
-    }, Affix.prototype.getPinnedOffset = function() {
-        if (this.pinnedOffset) return this.pinnedOffset;
-        this.$element.removeClass(Affix.RESET).addClass("affix");
-        var scrollTop = this.$target.scrollTop(), position = this.$element.offset();
-        return this.pinnedOffset = position.top - scrollTop;
-    }, Affix.prototype.checkPositionWithEventLoop = function() {
-        setTimeout($.proxy(this.checkPosition, this), 1);
-    }, Affix.prototype.checkPosition = function() {
-        if (this.$element.is(":visible")) {
-            var height = this.$element.height(), offset = this.options.offset, offsetTop = offset.top, offsetBottom = offset.bottom, scrollHeight = Math.max($(document).height(), $(document.body).height());
-            "object" != typeof offset && (offsetBottom = offsetTop = offset), "function" == typeof offsetTop && (offsetTop = offset.top(this.$element)), 
-            "function" == typeof offsetBottom && (offsetBottom = offset.bottom(this.$element));
-            var affix = this.getState(scrollHeight, height, offsetTop, offsetBottom);
-            if (this.affixed != affix) {
-                null != this.unpin && this.$element.css("top", "");
-                var affixType = "affix" + (affix ? "-" + affix : ""), e = $.Event(affixType + ".bs.affix");
-                if (this.$element.trigger(e), e.isDefaultPrevented()) return;
-                this.affixed = affix, this.unpin = "bottom" == affix ? this.getPinnedOffset() : null, 
-                this.$element.removeClass(Affix.RESET).addClass(affixType).trigger(affixType.replace("affix", "affixed") + ".bs.affix");
+    Carousel.VERSION = "3.3.7", Carousel.TRANSITION_DURATION = 600, Carousel.DEFAULTS = {
+        interval: 5e3,
+        pause: "hover",
+        wrap: !0,
+        keyboard: !0
+    }, Carousel.prototype.keydown = function(e) {
+        if (!/input|textarea/i.test(e.target.tagName)) {
+            switch (e.which) {
+              case 37:
+                this.prev();
+                break;
+
+              case 39:
+                this.next();
+                break;
+
+              default:
+                return;
             }
-            "bottom" == affix && this.$element.offset({
-                top: scrollHeight - height - offsetBottom
+            e.preventDefault();
+        }
+    }, Carousel.prototype.cycle = function(e) {
+        return e || (this.paused = !1), this.interval && clearInterval(this.interval), this.options.interval && !this.paused && (this.interval = setInterval($.proxy(this.next, this), this.options.interval)), 
+        this;
+    }, Carousel.prototype.getItemIndex = function(item) {
+        return this.$items = item.parent().children(".item"), this.$items.index(item || this.$active);
+    }, Carousel.prototype.getItemForDirection = function(direction, active) {
+        var activeIndex = this.getItemIndex(active), willWrap = "prev" == direction && 0 === activeIndex || "next" == direction && activeIndex == this.$items.length - 1;
+        if (willWrap && !this.options.wrap) return active;
+        var delta = "prev" == direction ? -1 : 1, itemIndex = (activeIndex + delta) % this.$items.length;
+        return this.$items.eq(itemIndex);
+    }, Carousel.prototype.to = function(pos) {
+        var that = this, activeIndex = this.getItemIndex(this.$active = this.$element.find(".item.active"));
+        if (!(pos > this.$items.length - 1 || pos < 0)) return this.sliding ? this.$element.one("slid.bs.carousel", function() {
+            that.to(pos);
+        }) : activeIndex == pos ? this.pause().cycle() : this.slide(pos > activeIndex ? "next" : "prev", this.$items.eq(pos));
+    }, Carousel.prototype.pause = function(e) {
+        return e || (this.paused = !0), this.$element.find(".next, .prev").length && $.support.transition && (this.$element.trigger($.support.transition.end), 
+        this.cycle(!0)), this.interval = clearInterval(this.interval), this;
+    }, Carousel.prototype.next = function() {
+        if (!this.sliding) return this.slide("next");
+    }, Carousel.prototype.prev = function() {
+        if (!this.sliding) return this.slide("prev");
+    }, Carousel.prototype.slide = function(type, next) {
+        var $active = this.$element.find(".item.active"), $next = next || this.getItemForDirection(type, $active), isCycling = this.interval, direction = "next" == type ? "left" : "right", that = this;
+        if ($next.hasClass("active")) return this.sliding = !1;
+        var relatedTarget = $next[0], slideEvent = $.Event("slide.bs.carousel", {
+            relatedTarget: relatedTarget,
+            direction: direction
+        });
+        if (this.$element.trigger(slideEvent), !slideEvent.isDefaultPrevented()) {
+            if (this.sliding = !0, isCycling && this.pause(), this.$indicators.length) {
+                this.$indicators.find(".active").removeClass("active");
+                var $nextIndicator = $(this.$indicators.children()[this.getItemIndex($next)]);
+                $nextIndicator && $nextIndicator.addClass("active");
+            }
+            var slidEvent = $.Event("slid.bs.carousel", {
+                relatedTarget: relatedTarget,
+                direction: direction
             });
+            return $.support.transition && this.$element.hasClass("slide") ? ($next.addClass(type), 
+            $next[0].offsetWidth, $active.addClass(direction), $next.addClass(direction), $active.one("bsTransitionEnd", function() {
+                $next.removeClass([ type, direction ].join(" ")).addClass("active"), $active.removeClass([ "active", direction ].join(" ")), 
+                that.sliding = !1, setTimeout(function() {
+                    that.$element.trigger(slidEvent);
+                }, 0);
+            }).emulateTransitionEnd(Carousel.TRANSITION_DURATION)) : ($active.removeClass("active"), 
+            $next.addClass("active"), this.sliding = !1, this.$element.trigger(slidEvent)), 
+            isCycling && this.cycle(), this;
         }
     };
-    var old = $.fn.affix;
-    $.fn.affix = Plugin, $.fn.affix.Constructor = Affix, $.fn.affix.noConflict = function() {
-        return $.fn.affix = old, this;
-    }, $(window).on("load", function() {
-        $('[data-spy="affix"]').each(function() {
-            var $spy = $(this), data = $spy.data();
-            data.offset = data.offset || {}, null != data.offsetBottom && (data.offset.bottom = data.offsetBottom), 
-            null != data.offsetTop && (data.offset.top = data.offsetTop), Plugin.call($spy, data);
-        });
-    });
-}(jQuery), +function($) {
-    "use strict";
-    function Plugin(option) {
-        return this.each(function() {
-            var $this = $(this), data = $this.data("bs.button"), options = "object" == typeof option && option;
-            data || $this.data("bs.button", data = new Button(this, options)), "toggle" == option ? data.toggle() : option && data.setState(option);
-        });
-    }
-    var Button = function(element, options) {
-        this.$element = $(element), this.options = $.extend({}, Button.DEFAULTS, options), 
-        this.isLoading = !1;
+    var old = $.fn.carousel;
+    $.fn.carousel = Plugin, $.fn.carousel.Constructor = Carousel, $.fn.carousel.noConflict = function() {
+        return $.fn.carousel = old, this;
     };
-    Button.VERSION = "3.3.7", Button.DEFAULTS = {
-        loadingText: "loading..."
-    }, Button.prototype.setState = function(state) {
-        var d = "disabled", $el = this.$element, val = $el.is("input") ? "val" : "html", data = $el.data();
-        state += "Text", null == data.resetText && $el.data("resetText", $el[val]()), setTimeout($.proxy(function() {
-            $el[val](null == data[state] ? this.options[state] : data[state]), "loadingText" == state ? (this.isLoading = !0, 
-            $el.addClass(d).attr(d, d).prop(d, !0)) : this.isLoading && (this.isLoading = !1, 
-            $el.removeClass(d).removeAttr(d).prop(d, !1));
-        }, this), 0);
-    }, Button.prototype.toggle = function() {
-        var changed = !0, $parent = this.$element.closest('[data-toggle="buttons"]');
-        if ($parent.length) {
-            var $input = this.$element.find("input");
-            "radio" == $input.prop("type") ? ($input.prop("checked") && (changed = !1), $parent.find(".active").removeClass("active"), 
-            this.$element.addClass("active")) : "checkbox" == $input.prop("type") && ($input.prop("checked") !== this.$element.hasClass("active") && (changed = !1), 
-            this.$element.toggleClass("active")), $input.prop("checked", this.$element.hasClass("active")), 
-            changed && $input.trigger("change");
-        } else this.$element.attr("aria-pressed", !this.$element.hasClass("active")), this.$element.toggleClass("active");
+    var clickHandler = function(e) {
+        var href, $this = $(this), $target = $($this.attr("data-target") || (href = $this.attr("href")) && href.replace(/.*(?=#[^\s]+$)/, ""));
+        if ($target.hasClass("carousel")) {
+            var options = $.extend({}, $target.data(), $this.data()), slideIndex = $this.attr("data-slide-to");
+            slideIndex && (options.interval = !1), Plugin.call($target, options), slideIndex && $target.data("bs.carousel").to(slideIndex), 
+            e.preventDefault();
+        }
     };
-    var old = $.fn.button;
-    $.fn.button = Plugin, $.fn.button.Constructor = Button, $.fn.button.noConflict = function() {
-        return $.fn.button = old, this;
-    }, $(document).on("click.bs.button.data-api", '[data-toggle^="button"]', function(e) {
-        var $btn = $(e.target).closest(".btn");
-        Plugin.call($btn, "toggle"), $(e.target).is('input[type="radio"], input[type="checkbox"]') || (e.preventDefault(), 
-        $btn.is("input,button") ? $btn.trigger("focus") : $btn.find("input:visible,button:visible").first().trigger("focus"));
-    }).on("focus.bs.button.data-api blur.bs.button.data-api", '[data-toggle^="button"]', function(e) {
-        $(e.target).closest(".btn").toggleClass("focus", /^focus(in)?$/.test(e.type));
+    $(document).on("click.bs.carousel.data-api", "[data-slide]", clickHandler).on("click.bs.carousel.data-api", "[data-slide-to]", clickHandler), 
+    $(window).on("load", function() {
+        $('[data-ride="carousel"]').each(function() {
+            var $carousel = $(this);
+            Plugin.call($carousel, $carousel.data());
+        });
     });
 }(jQuery), +function($) {
     "use strict";
@@ -178,43 +184,6 @@ function suma(nombre, nombre) {
         var $target = getTargetFromTrigger($this), data = $target.data("bs.collapse"), option = data ? "toggle" : $this.data();
         Plugin.call($target, option);
     });
-}(jQuery), +function($) {
-    "use strict";
-    function Plugin(option) {
-        return this.each(function() {
-            var $this = $(this), data = $this.data("bs.popover"), options = "object" == typeof option && option;
-            !data && /destroy|hide/.test(option) || (data || $this.data("bs.popover", data = new Popover(this, options)), 
-            "string" == typeof option && data[option]());
-        });
-    }
-    var Popover = function(element, options) {
-        this.init("popover", element, options);
-    };
-    if (!$.fn.tooltip) throw new Error("Popover requires tooltip.js");
-    Popover.VERSION = "3.3.7", Popover.DEFAULTS = $.extend({}, $.fn.tooltip.Constructor.DEFAULTS, {
-        placement: "right",
-        trigger: "click",
-        content: "",
-        template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
-    }), Popover.prototype = $.extend({}, $.fn.tooltip.Constructor.prototype), Popover.prototype.constructor = Popover, 
-    Popover.prototype.getDefaults = function() {
-        return Popover.DEFAULTS;
-    }, Popover.prototype.setContent = function() {
-        var $tip = this.tip(), title = this.getTitle(), content = this.getContent();
-        $tip.find(".popover-title")[this.options.html ? "html" : "text"](title), $tip.find(".popover-content").children().detach().end()[this.options.html ? "string" == typeof content ? "html" : "append" : "text"](content), 
-        $tip.removeClass("fade top bottom left right in"), $tip.find(".popover-title").html() || $tip.find(".popover-title").hide();
-    }, Popover.prototype.hasContent = function() {
-        return this.getTitle() || this.getContent();
-    }, Popover.prototype.getContent = function() {
-        var $e = this.$element, o = this.options;
-        return $e.attr("data-content") || ("function" == typeof o.content ? o.content.call($e[0]) : o.content);
-    }, Popover.prototype.arrow = function() {
-        return this.$arrow = this.$arrow || this.tip().find(".arrow");
-    };
-    var old = $.fn.popover;
-    $.fn.popover = Plugin, $.fn.popover.Constructor = Popover, $.fn.popover.noConflict = function() {
-        return $.fn.popover = old, this;
-    };
 }(jQuery), +function($) {
     "use strict";
     function transitionEnd() {

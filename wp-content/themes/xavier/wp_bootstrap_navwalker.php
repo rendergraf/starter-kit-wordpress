@@ -58,7 +58,7 @@ class wp_bootstrap_navwalker extends Walker_Nav_Menu {
 			$class_names = $value = '';
 
 			$classes = empty( $item->classes ) ? array() : (array) $item->classes;
-			$classes[] = 'menu-item-' . $item->ID;
+			$classes[] = 'navbar__container__menu__list__item item-id-' . $item->ID;
 
 			$class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args ) );
 
@@ -112,7 +112,7 @@ class wp_bootstrap_navwalker extends Walker_Nav_Menu {
 			if ( ! empty( $item->attr_title ) )
 				$item_output .= '<a'. $attributes .'><span class="glyphicon ' . esc_attr( $item->attr_title ) . '"></span>&nbsp;';
 			else
-				$item_output .= '<a'. $attributes .'>';
+				$item_output .= '<a'. $attributes .'class="navbar__container__menu__list__item--link"'.'>';
 
 			$item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
 			$item_output .= ( $args->has_children && 0 === $depth ) ? ' <span class="caret"></span></a>' : '</a>';

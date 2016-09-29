@@ -30,3 +30,5 @@
 
     <!-- W3TC-include-js-head -->
 </head>
+<!-- Start load block navbar -->
+<?php get_template_part( 'blocks/navbar/navbar' ); ?>

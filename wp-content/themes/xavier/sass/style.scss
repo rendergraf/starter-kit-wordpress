@@ -1,11 +1,11 @@
 @import "version";
+@import "reset";
 // Vendor Bootstrap */
 @import "bootstrap";
 
 // Setup
 @import "variables";
 @import "palette";
-@import "reset";
 @import "mixins";
 @import "media";
 @import "fonts";
@@ -16,3 +16,9 @@
 
 // Wordpress blocks BEM
 @import "../blocks/button/button";
+@import "../blocks/carousel/carousel";
+@import "../blocks/form/form";
+@import "../blocks/marketingcards/marketingcards";
+@import "../blocks/navbar/navbar";
+@import "../blocks/navbarfooter/navbarfooter";
+@import "../blocks/article/article";

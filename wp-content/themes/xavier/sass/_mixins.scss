@@ -1,3 +1,8 @@
+.image-responsive {
+	display: block;
+	width: 100%;
+	height: auto;    
+}
 // Video
 @mixin ratio ($w,$h) {
     height: 0;
