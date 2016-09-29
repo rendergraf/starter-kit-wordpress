@@ -1,5 +1,5 @@
 # starter-kit-wordpress
-Tool for development theme in Wordpress
+Tool for development of themes for Wordpress
 
 Starter Kit for Wordpress
 
