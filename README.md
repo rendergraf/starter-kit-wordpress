@@ -41,4 +41,4 @@ url: https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedag
 
 ## enjoy!
 
-Leave me your comments -  twitter @rendergraf
+Leave me your comments -  twitter [@rendergraf](https://twitter.com/Rendergraf)
