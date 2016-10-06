@@ -1,26 +1,44 @@
 # starter-kit-wordpress
-Tool for development of themes for Wordpress
+###Tool for development of themes for Wordpress
 
-Starter Kit for Wordpress
+##Starter Kit for Wordpress
 
-1.- Copy into wordpress environment folder:
+#### 1. Copy into wordpress environment folder:
 wp-content (folder)
 package.json
 gulpfile.js
 
-2.- Go directory worpress from console
+#### 2. Go to the directory from the console wordpress
 
-3.- Execute command for install depencencies: 
-npm install
+#### 3. Install gulp globally
 
-4.- Execute gulp command:
-gulp watch
+```sh
+$ npm install --global gulp-cli
+```
 
-5.- Install extencion Livereload in Chrome
+#### 4. Install gulp in your project devDependencies
+
+```sh
+$ npm install --save-dev gulp
+```
+
+#### 5. Execute command for install depencencies: 
+
+```sh
+$ npm install
+```
+
+#### 6. Execute gulp command:
+
+```sh
+$ gulp watch
+```
+
+#### 7. Install extencion Livereload in Chrome
 url: https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei
 
-6.- Go browser and active icon Livereload
+#### 8. Go browser and active icon Livereload
 
-enjoy!
+## enjoy!
 
 Leave me your comments -  twitter @rendergraf
