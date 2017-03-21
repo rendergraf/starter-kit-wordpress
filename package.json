@@ -1,14 +1,14 @@
 {
   "name": "wordpress",
-  "version": "1.0.0",
-  "description": "Tool for develpment of theme in Wordpress",
-  "main": "style.scss",
+  "version": "1.0.1",
+  "description": "Tool for development of theme in Wordpress",
+  "main": "gulpfile.js",
   "scripts": {
     "test": "gulp watch"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/rendergraf/wordpress.git"
+    "url": "https://github.com/rendergraf/starter-kit-wordpress"
   },
   "keywords": [
     "Gulp",
@@ -17,17 +17,21 @@
     "Bootstrap"
   ],
   "author": "Xavier Araque",
-  "license": "MIT",
+  "license": "ISC",
   "devDependencies": {
-    "gulp": "^3.9.0",
-    "gulp-autoprefixer": "^3.0.2",
-    "gulp-esformatter": "^6.0.0",
-    "gulp-imagemin": "^2.3.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-cli": "^1.2.2",
     "gulp-livereload": "^3.8.1",
-    "gulp-sass": "^2.0.4",
-    "gulp-sourcemaps": "^1.5.2",
-    "gulp-uglifyjs": "^0.6.2",
-    "imagemin-pngquant": "^4.2.0"
+    "gulp-sass": "^2.3.2",
+    "gulp-sourcemaps": "^1.9.1",
+    "gulp-uglify": "^2.0.1"
+  },
+  "dependencies": {
+    "bootstrap-sass": "^3.3.7",
+    "gulp-install": "^0.6.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-uglifyjs": "^0.6.2"
   },
   "bugs": {
     "url": "https://github.com/rendergraf/wordpress/issues"
